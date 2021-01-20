@@ -1,0 +1,9 @@
+export { AggregateStudy_duplicated_by_instance_uidArgs } from "./AggregateStudy_duplicated_by_instance_uidArgs";
+export { CreateStudy_duplicated_by_instance_uidArgs } from "./CreateStudy_duplicated_by_instance_uidArgs";
+export { DeleteManyStudy_duplicated_by_instance_uidArgs } from "./DeleteManyStudy_duplicated_by_instance_uidArgs";
+export { DeleteStudy_duplicated_by_instance_uidArgs } from "./DeleteStudy_duplicated_by_instance_uidArgs";
+export { FindManyStudy_duplicated_by_instance_uidArgs } from "./FindManyStudy_duplicated_by_instance_uidArgs";
+export { FindOneStudy_duplicated_by_instance_uidArgs } from "./FindOneStudy_duplicated_by_instance_uidArgs";
+export { UpdateManyStudy_duplicated_by_instance_uidArgs } from "./UpdateManyStudy_duplicated_by_instance_uidArgs";
+export { UpdateStudy_duplicated_by_instance_uidArgs } from "./UpdateStudy_duplicated_by_instance_uidArgs";
+export { UpsertStudy_duplicated_by_instance_uidArgs } from "./UpsertStudy_duplicated_by_instance_uidArgs";

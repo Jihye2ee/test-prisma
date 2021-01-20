@@ -1,0 +1,9 @@
+export { AggregateTask_storageArgs } from "./AggregateTask_storageArgs";
+export { CreateTask_storageArgs } from "./CreateTask_storageArgs";
+export { DeleteManyTask_storageArgs } from "./DeleteManyTask_storageArgs";
+export { DeleteTask_storageArgs } from "./DeleteTask_storageArgs";
+export { FindManyTask_storageArgs } from "./FindManyTask_storageArgs";
+export { FindOneTask_storageArgs } from "./FindOneTask_storageArgs";
+export { UpdateManyTask_storageArgs } from "./UpdateManyTask_storageArgs";
+export { UpdateTask_storageArgs } from "./UpdateTask_storageArgs";
+export { UpsertTask_storageArgs } from "./UpsertTask_storageArgs";

@@ -1,0 +1,353 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "node node_modules/typegraphql-prisma/generator.js"
+  output   = "../prisma/generated/type-graphql"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model annotation {
+  seq                                  Int    @id
+  add_timestamp                        Int
+  annotation_json_payload              String
+  annotation_key                       String @unique
+  series_uuid_defined_in_internal_pacs String
+  update_timestamp                     Int
+  id                                   String
+}
+
+model environment {
+  seq                   Int    @id @default(autoincrement())
+  item                  String @unique
+  json                  String
+  last_update_timestamp Int
+}
+
+model internal_pacs_instance {
+  seq                       Int     @id
+  internal_pacs_instance_id String  @unique
+  creation_timestamp        Int
+  update_timestamp          Int
+  description               String
+  host                      String
+  port                      Int
+  study                     study[]
+}
+
+model lung_rads_report {
+  seq                             Int      @id @default(autoincrement())
+  study_instance_uid              String   @unique
+  is_bronchial                    Boolean? @default(false)
+  is_bronchial_text               String?
+  is_induration                   Boolean? @default(false)
+  is_induration_text              String?
+  is_atelectasis                  Boolean? @default(false)
+  is_atelectasis_text             String?
+  is_lymph_node                   Boolean? @default(false)
+  is_lymph_node_text              String?
+  is_cancer_others                Boolean? @default(false)
+  is_cancer_others_text           String?
+  is_coronary_calcification       Boolean? @default(false)
+  selected_coronary_calcification String?
+  is_emphysema                    Boolean? @default(false)
+  is_interstitial                 Boolean? @default(false)
+  is_pneumonia                    Boolean? @default(false)
+  is_extrapulmonary               Boolean? @default(false)
+  is_aneurysm                     Boolean? @default(false)
+  is_effusion                     Boolean? @default(false)
+  is_no_nodule_others             Boolean? @default(false)
+  is_no_nodule_others_text        String?
+  is_tuberculosis                 Boolean? @default(false)
+  is_other_diseases               Boolean? @default(false)
+  is_other_diseases_text          String?
+  final_rads_score                String?
+  additional_report               String?
+  lung_rads_report_result         String?
+}
+
+model nodule_analysis_request_history {
+  seq                                      Int       @id @default(autoincrement())
+  nodule_analysis_request_uuid             String    @unique
+  series_uuid_defined_in_internal_pacs     String
+  result_json_data                         String?
+  nodule_count                             Int?      @default(0)
+  creation_timestamp                       Int
+  nodule_analysis_result_receive_timestamp Int?      @default(0)
+  request_user_id                          String
+  analysis_version                         String?
+  nodules                                  nodules[]
+
+  @@index([series_uuid_defined_in_internal_pacs], name: "series_uuid_defined_in_internal_pacs")
+}
+
+model nodules {
+  nodule_seq                                     Int                                 @id @default(autoincrement())
+  nodule_uuid                                    String                              @unique
+  study_instance_uid                             String
+  series_instance_uid                            String
+  series_uuid_defined_in_internal_pacs           String
+  series_instance_index                          Int
+  sop_instance_uid                               String?
+  nodule_long_axis                               Float
+  nodule_short_axis                              Float
+  nodule_coordinate_x                            Int
+  nodule_coordinate_y                            Int
+  nodule_lesion_type                             String
+  nodule_status                                  String
+  nodule_input_type                              String
+  nodule_info_changed_by                         String
+  add_timestamp                                  Int
+  update_timestamp                               Int
+  comment                                        String
+  average_diameter                               Float                               @default(0)
+  short_diameter                                 Float                               @default(0)
+  long_diameter                                  Float                               @default(0)
+  nodule_segments_info_json                      String
+  option1                                        Int                                 @default(0)
+  option2                                        Int                                 @default(0)
+  option3                                        Int                                 @default(0)
+  option4                                        Int                                 @default(0)
+  LungRADs                                       String?
+  user_id                                        String?
+  part_solid_nodule_coordinate_x                 Int                                 @default(0)
+  part_solid_nodule_coordinate_y                 Int                                 @default(0)
+  part_solid_short_diameter                      Float                               @default(0)
+  part_solid_long_diameter                       Float                               @default(0)
+  lobe                                           Int?
+  nodule_analysis_request_uuid                   String                              @default("")
+  request_user_id                                String                              @default("admin")
+  nodule_annotation_accuracy                     nodules_nodule_annotation_accuracy?
+  nodule_annotation_accuracy_confirmed_user_id   String?
+  nodule_annotation_accuracy_confirmed_timestamp Int                                 @default(0)
+  long_coords                                    String?
+  short_coords                                   String?
+  part_long_coords                               String?
+  part_short_coords                              String?
+  volume                                         Float                               @default(0)
+  part_volume                                    Float                               @default(0)
+  cavity                                         Boolean                             @default(false)
+  spiculation                                    Boolean                             @default(false)
+  isCommentNodule4X                              Boolean                             @default(false)
+  commentNodule4X                                String?
+  nodule_annotation_status                       String?
+  analysis_version                               String?
+  nodule_analysis_request_history                nodule_analysis_request_history     @relation(fields: [nodule_analysis_request_uuid], references: [nodule_analysis_request_uuid])
+
+  @@index([nodule_analysis_request_uuid], name: "nodule_analysis_request_uuid")
+  @@index([nodule_seq], name: "nodule_id")
+  @@index([series_uuid_defined_in_internal_pacs], name: "series_id")
+  @@index([series_instance_index], name: "series_instance_index")
+}
+
+model obfuscation_data {
+  obfuscated_data String  @id
+  creation_time   Int?
+  original_data   String?
+}
+
+model patient {
+  seq                Int     @id @default(autoincrement())
+  patient_uuid       String  @unique
+  patient_id         String
+  patient_name       String?
+  patient_sex        String
+  creation_timestamp Int
+  patient_age        String? @default("")
+  study              study[]
+
+  @@index([patient_uuid], name: "patient_uuid_2")
+}
+
+model series {
+  seq                                           Int     @id @default(autoincrement())
+  series_instance_uid                           String  @unique
+  modality                                      String?
+  series_uuid_defined_in_internal_pacs          String
+  series_number                                 Int     @default(0)
+  creation_timestamp                            Int     @default(0)
+  update_timestamp                              Int     @default(0)
+  series_description                            String
+  first_instances_uuid_defined_in_internal_pacs String? @default("")
+  study_instance_uid                            String
+  nodule_count                                  Int     @default(0)
+  comment                                       String?
+  study                                         study   @relation(fields: [study_instance_uid], references: [study_instance_uid])
+
+  @@index([series_uuid_defined_in_internal_pacs], name: "series_uuid_defined_in_internal_pacs")
+  @@index([study_instance_uid], name: "study_instance_uid")
+}
+
+model study {
+  seq                                 Int                     @id @default(autoincrement())
+  study_instance_uid                  String                  @unique
+  study_date                          String?
+  study_time                          String?
+  referring_physician_name            String?
+  study_description                   String?
+  patient_uuid                        String
+  analysis_request_timestamp          Int                     @default(0)
+  analysis_complete_timestamp         Int                     @default(0)
+  creation_time                       Int                     @default(0)
+  last_update_time                    Int                     @default(0)
+  internal_pacs_instance_id           String?
+  study_uuid_defined_in_internal_pacs String?
+  tags                                String?
+  general_user_confirmed              Boolean?                @default(false)
+  general_user_id                     String?
+  general_user_confirmed_timestamp    Int?                    @default(0)
+  professor_confirmed                 Boolean?                @default(false)
+  professor_id                        String?
+  professor_confirmed_timestamp       Int?                    @default(0)
+  study_report                        String?
+  baseline                            Boolean?                @default(true)
+  before_confirm_study_report         String?
+  study_lung_rads                     String?
+  delete_confirmed_timestamp          Int                     @default(0)
+  delete_confirmed_by                 String?
+  delete_rollback_timestamp           Int                     @default(0)
+  study_sync_confirmed_timestamp      Int                     @default(0)
+  institution                         String?
+  internal_pacs_instance              internal_pacs_instance? @relation(fields: [internal_pacs_instance_id], references: [internal_pacs_instance_id])
+  patient                             patient                 @relation(fields: [patient_uuid], references: [patient_uuid])
+  series                              series[]
+
+  @@index([internal_pacs_instance_id], name: "internal_pacs_instance_id")
+  @@index([patient_uuid], name: "patient_uuid")
+  @@index([study_uuid_defined_in_internal_pacs], name: "study_uuid_defined_in_internal_pacs")
+}
+
+model study_duplicated_by_instance_uid {
+  seq                                         Int     @id @default(autoincrement())
+  study_instance_uid                          String
+  study_date                                  String?
+  study_time                                  String?
+  referring_physician_name                    String?
+  study_description                           String?
+  patient_uuid                                String
+  internal_pacs_instance_id                   String?
+  study_uuid_defined_in_internal_pacs         String? @unique
+  existed_study_instance_uid                  String
+  existed_study_uuid_defined_in_internal_pacs String
+  creation_time                               Int     @default(0)
+  error_msg                                   String
+
+  @@index([existed_study_instance_uid], name: "existed_study_instance_uid")
+  @@index([existed_study_uuid_defined_in_internal_pacs], name: "existed_study_uuid_defined_in_internal_pacs")
+  @@index([study_instance_uid], name: "study_instance_uid")
+  @@index([study_uuid_defined_in_internal_pacs], name: "study_uuid_defined_in_internal_2")
+}
+
+model user {
+  seq                           Int                   @id @default(autoincrement())
+  id                            String                @unique
+  name                          String
+  password                      String
+  permission                    user_permission       @default(PHYSICIAN)
+  creation_timestamp            Int                   @default(0)
+  update_timstamp               Int                   @default(0)
+  last_password_update_timstamp Int                   @default(0)
+  invalid_password_count        Int                   @default(0)
+  preference                    String?
+  user_signin_history           user_signin_history[]
+}
+
+model user_management_history {
+  seq       Int                          @id @default(autoincrement())
+  id        String
+  type      user_management_history_type
+  timestamp Int                          @default(0)
+}
+
+model user_signin_history {
+  seq                  Int     @id @default(autoincrement())
+  id                   String
+  session_key          String
+  session_uuid         String
+  sign_in_timestamp    Int     @default(0)
+  sign_out_timestamp   Int     @default(0)
+  heart_beat_timestamp Int     @default(0)
+  ip                   String?
+  user                 user    @relation(fields: [id], references: [id])
+
+  @@index([id], name: "id")
+}
+
+model user_study_open_history {
+  seq                                  Int    @id @default(autoincrement())
+  id                                   String
+  study_uuid_defined_in_internal_pacs  String
+  series_uuid_defined_in_internal_pacs String
+  open_request_timestamp               Int    @default(0)
+}
+
+model garbage_collection {
+  seq                                  Int     @id
+  creation_timestamp                   Int?
+  error_timestamp                      Int?
+  finish_timestamp                     Int?
+  retry_count                          Int?
+  series_instance_uid                  String?
+  series_uuid_defined_in_internal_pacs String?
+  start_timestamp                      Int?
+  study_instance_uid                   String?
+  study_uuid_defined_in_internal_pacs  String?
+}
+
+model nodule_matching {
+  seq                            Int     @id @default(autoincrement())
+  nodule_matching_request_uuid   String
+  study_instance_uid             String
+  series_instance_uid            String
+  nodule_uuid                    String
+  comparison_study_instance_uid  String
+  comparison_series_instance_uid String
+  comparison_nodule_uuid         String
+  creation_timestamp             Int     @default(0)
+  user_id                        String?
+  link_status                    Int     @default(1)
+}
+
+model task_storage {
+  task_uuid               String  @id
+  task_creation_timestamp Int?
+  task_object_json_string String?
+  task_type               String?
+}
+
+model nodule_registration {
+  seq                                Int     @id @default(autoincrement())
+  nodule_registration_request_uuid   String
+}
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled.
+// model hibernate_sequence {
+  // next_val Int?
+// }
+
+enum nodules_nodule_annotation_accuracy {
+  TRUE_POSITIVE
+  FALSE_POSITIVE
+  FALSE_NEGATIVE
+  EMPTY_ENUM_VALUE @map("")
+}
+
+enum user_permission {
+  ADMINISTRATOR
+  PHYSICIAN
+  RESTRICTED_PHYSICIAN
+  EMPTY_ENUM_VALUE @map("")
+}
+
+enum user_management_history_type {
+  CREATION
+  DELETION
+  UPDATE
+  PERMISSION_CHANGE
+  PASSWORD_LOCKED
+}

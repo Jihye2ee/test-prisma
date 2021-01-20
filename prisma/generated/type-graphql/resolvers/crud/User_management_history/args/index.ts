@@ -1,0 +1,9 @@
+export { AggregateUser_management_historyArgs } from "./AggregateUser_management_historyArgs";
+export { CreateUser_management_historyArgs } from "./CreateUser_management_historyArgs";
+export { DeleteManyUser_management_historyArgs } from "./DeleteManyUser_management_historyArgs";
+export { DeleteUser_management_historyArgs } from "./DeleteUser_management_historyArgs";
+export { FindManyUser_management_historyArgs } from "./FindManyUser_management_historyArgs";
+export { FindOneUser_management_historyArgs } from "./FindOneUser_management_historyArgs";
+export { UpdateManyUser_management_historyArgs } from "./UpdateManyUser_management_historyArgs";
+export { UpdateUser_management_historyArgs } from "./UpdateUser_management_historyArgs";
+export { UpsertUser_management_historyArgs } from "./UpsertUser_management_historyArgs";

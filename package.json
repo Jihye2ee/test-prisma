@@ -1,0 +1,30 @@
+{
+  "name": "test-prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node --transpile-only ./index.ts",
+    "build": "ts-node --transpile-only ./index.ts"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@prisma/cli": "^2.14.0",
+    "@types/node": "^14.0.19",
+    "apollo-boost": "^0.4.9",
+    "ts-node": "^8.10.2",
+    "typegraphql-prisma": "^0.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.2.0",
+    "apollo-server": "^2.15.1",
+    "class-validator": "^0.12.2",
+    "graphql": "^15.3.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.0.0-rc.3",
+    "typescript": "^3.9.6"
+  }
+}
