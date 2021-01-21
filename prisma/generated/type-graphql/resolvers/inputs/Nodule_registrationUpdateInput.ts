@@ -18,4 +18,46 @@ export class Nodule_registrationUpdateInput {
     description: undefined
   })
   nodule_registration_request_uuid?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true,
+    description: undefined
+  })
+  study_instance_uid?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true,
+    description: undefined
+  })
+  series_instance_uid?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true,
+    description: undefined
+  })
+  comparison_study_instance_uid?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true,
+    description: undefined
+  })
+  comparison_series_instance_uid?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true,
+    description: undefined
+  })
+  comparison_nodule_uuid?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true,
+    description: undefined
+  })
+  result_matrix?: string | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true,
+    description: undefined
+  })
+  creation_timestamp?: number | undefined;
 }

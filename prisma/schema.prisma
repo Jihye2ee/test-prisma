@@ -145,6 +145,45 @@ model nodules {
   @@index([series_instance_index], name: "series_instance_index")
 }
 
+model garbage_collection {
+  seq                                  Int     @id
+  creation_timestamp                   Int?
+  error_timestamp                      Int?
+  finish_timestamp                     Int?
+  retry_count                          Int?
+  series_instance_uid                  String?
+  series_uuid_defined_in_internal_pacs String?
+  start_timestamp                      Int?
+  study_instance_uid                   String?
+  study_uuid_defined_in_internal_pacs  String?
+}
+
+model nodule_matching {
+  seq                            Int     @id @default(autoincrement())
+  nodule_matching_request_uuid   String
+  study_instance_uid             String
+  series_instance_uid            String
+  nodule_uuid                    String
+  comparison_study_instance_uid  String
+  comparison_series_instance_uid String
+  comparison_nodule_uuid         String
+  creation_timestamp             Int     @default(0)
+  user_id                        String?
+  link_status                    Int     @default(1)
+}
+
+model nodule_registration {
+  seq                                 Int     @id @default(autoincrement())
+  nodule_registration_request_uuid    String
+  study_instance_uid                  String
+  series_instance_uid                 String
+  comparison_study_instance_uid       String
+  comparison_series_instance_uid      String
+  comparison_nodule_uuid              String
+  result_matrix                       String
+  creation_timestamp                  Int     @default(0)
+}
+
 model obfuscation_data {
   obfuscated_data String  @id
   creation_time   Int?
@@ -243,6 +282,13 @@ model study_duplicated_by_instance_uid {
   @@index([study_uuid_defined_in_internal_pacs], name: "study_uuid_defined_in_internal_2")
 }
 
+model task_storage {
+  task_uuid               String  @id
+  task_creation_timestamp Int?
+  task_object_json_string String?
+  task_type               String?
+}
+
 model user {
   seq                           Int                   @id @default(autoincrement())
   id                            String                @unique
@@ -284,45 +330,6 @@ model user_study_open_history {
   study_uuid_defined_in_internal_pacs  String
   series_uuid_defined_in_internal_pacs String
   open_request_timestamp               Int    @default(0)
-}
-
-model garbage_collection {
-  seq                                  Int     @id
-  creation_timestamp                   Int?
-  error_timestamp                      Int?
-  finish_timestamp                     Int?
-  retry_count                          Int?
-  series_instance_uid                  String?
-  series_uuid_defined_in_internal_pacs String?
-  start_timestamp                      Int?
-  study_instance_uid                   String?
-  study_uuid_defined_in_internal_pacs  String?
-}
-
-model nodule_matching {
-  seq                            Int     @id @default(autoincrement())
-  nodule_matching_request_uuid   String
-  study_instance_uid             String
-  series_instance_uid            String
-  nodule_uuid                    String
-  comparison_study_instance_uid  String
-  comparison_series_instance_uid String
-  comparison_nodule_uuid         String
-  creation_timestamp             Int     @default(0)
-  user_id                        String?
-  link_status                    Int     @default(1)
-}
-
-model task_storage {
-  task_uuid               String  @id
-  task_creation_timestamp Int?
-  task_object_json_string String?
-  task_type               String?
-}
-
-model nodule_registration {
-  seq                                Int     @id @default(autoincrement())
-  nodule_registration_request_uuid   String
 }
 
 // The underlying table does not contain a valid unique identifier and can therefore currently not be handled.

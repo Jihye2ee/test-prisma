@@ -10,7 +10,7 @@ CREATE TABLE `annotation` (
 UNIQUE INDEX `annotation.annotation_key_unique`(`annotation_key`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `environment` (
@@ -21,7 +21,7 @@ CREATE TABLE `environment` (
 UNIQUE INDEX `environment.item_unique`(`item`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `internal_pacs_instance` (
@@ -35,7 +35,7 @@ CREATE TABLE `internal_pacs_instance` (
 UNIQUE INDEX `internal_pacs_instance.internal_pacs_instance_id_unique`(`internal_pacs_instance_id`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `lung_rads_report` (
@@ -70,7 +70,7 @@ CREATE TABLE `lung_rads_report` (
 UNIQUE INDEX `lung_rads_report.study_instance_uid_unique`(`study_instance_uid`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `nodule_analysis_request_history` (
@@ -87,7 +87,7 @@ UNIQUE INDEX `nodule_analysis_request_history.nodule_analysis_request_uuid_uni`(
 INDEX `series_uuid_defined_in_internal_pacs`(`series_uuid_defined_in_internal_pacs`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `nodules` (
@@ -148,7 +148,55 @@ INDEX `series_id`(`series_uuid_defined_in_internal_pacs`),
 INDEX `series_instance_index`(`series_instance_index`),
 
     PRIMARY KEY (`nodule_seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `garbage_collection` (
+    `seq` INT NOT NULL,
+    `creation_timestamp` INT,
+    `error_timestamp` INT,
+    `finish_timestamp` INT,
+    `retry_count` INT,
+    `series_instance_uid` VARCHAR(191),
+    `series_uuid_defined_in_internal_pacs` VARCHAR(191),
+    `start_timestamp` INT,
+    `study_instance_uid` VARCHAR(191),
+    `study_uuid_defined_in_internal_pacs` VARCHAR(191),
+
+    PRIMARY KEY (`seq`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `nodule_matching` (
+    `seq` INT NOT NULL AUTO_INCREMENT,
+    `nodule_matching_request_uuid` VARCHAR(191) NOT NULL,
+    `study_instance_uid` VARCHAR(191) NOT NULL,
+    `series_instance_uid` VARCHAR(191) NOT NULL,
+    `nodule_uuid` VARCHAR(191) NOT NULL,
+    `comparison_study_instance_uid` VARCHAR(191) NOT NULL,
+    `comparison_series_instance_uid` VARCHAR(191) NOT NULL,
+    `comparison_nodule_uuid` VARCHAR(191) NOT NULL,
+    `creation_timestamp` INT NOT NULL DEFAULT 0,
+    `user_id` VARCHAR(191),
+    `link_status` INT NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (`seq`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `nodule_registration` (
+    `seq` INT NOT NULL AUTO_INCREMENT,
+    `nodule_registration_request_uuid` VARCHAR(191) NOT NULL,
+    `study_instance_uid` VARCHAR(191) NOT NULL,
+    `series_instance_uid` VARCHAR(191) NOT NULL,
+    `comparison_study_instance_uid` VARCHAR(191) NOT NULL,
+    `comparison_series_instance_uid` VARCHAR(191) NOT NULL,
+    `comparison_nodule_uuid` VARCHAR(191) NOT NULL,
+    `result_matrix` VARCHAR(191) NOT NULL,
+    `creation_timestamp` INT NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`seq`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `obfuscation_data` (
@@ -157,7 +205,7 @@ CREATE TABLE `obfuscation_data` (
     `original_data` VARCHAR(191),
 
     PRIMARY KEY (`obfuscated_data`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `patient` (
@@ -172,7 +220,7 @@ UNIQUE INDEX `patient.patient_uuid_unique`(`patient_uuid`),
 INDEX `patient_uuid_2`(`patient_uuid`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `series` (
@@ -193,7 +241,7 @@ INDEX `series_uuid_defined_in_internal_pacs`(`series_uuid_defined_in_internal_pa
 INDEX `study_instance_uid`(`study_instance_uid`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `study` (
@@ -232,7 +280,7 @@ INDEX `patient_uuid`(`patient_uuid`),
 INDEX `study_uuid_defined_in_internal_pacs`(`study_uuid_defined_in_internal_pacs`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `study_duplicated_by_instance_uid` (
@@ -256,7 +304,17 @@ INDEX `study_instance_uid`(`study_instance_uid`),
 INDEX `study_uuid_defined_in_internal_2`(`study_uuid_defined_in_internal_pacs`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `task_storage` (
+    `task_uuid` VARCHAR(191) NOT NULL,
+    `task_creation_timestamp` INT,
+    `task_object_json_string` VARCHAR(191),
+    `task_type` VARCHAR(191),
+
+    PRIMARY KEY (`task_uuid`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `user` (
@@ -273,7 +331,7 @@ CREATE TABLE `user` (
 UNIQUE INDEX `user.id_unique`(`id`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `user_management_history` (
@@ -283,7 +341,7 @@ CREATE TABLE `user_management_history` (
     `timestamp` INT NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `user_signin_history` (
@@ -298,7 +356,7 @@ CREATE TABLE `user_signin_history` (
 INDEX `id`(`id`),
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `user_study_open_history` (
@@ -309,58 +367,7 @@ CREATE TABLE `user_study_open_history` (
     `open_request_timestamp` INT NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
-
--- CreateTable
-CREATE TABLE `garbage_collection` (
-    `seq` INT NOT NULL,
-    `creation_timestamp` INT,
-    `error_timestamp` INT,
-    `finish_timestamp` INT,
-    `retry_count` INT,
-    `series_instance_uid` VARCHAR(191),
-    `series_uuid_defined_in_internal_pacs` VARCHAR(191),
-    `start_timestamp` INT,
-    `study_instance_uid` VARCHAR(191),
-    `study_uuid_defined_in_internal_pacs` VARCHAR(191),
-
-    PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
-
--- CreateTable
-CREATE TABLE `nodule_matching` (
-    `seq` INT NOT NULL AUTO_INCREMENT,
-    `nodule_matching_request_uuid` VARCHAR(191) NOT NULL,
-    `study_instance_uid` VARCHAR(191) NOT NULL,
-    `series_instance_uid` VARCHAR(191) NOT NULL,
-    `nodule_uuid` VARCHAR(191) NOT NULL,
-    `comparison_study_instance_uid` VARCHAR(191) NOT NULL,
-    `comparison_series_instance_uid` VARCHAR(191) NOT NULL,
-    `comparison_nodule_uuid` VARCHAR(191) NOT NULL,
-    `creation_timestamp` INT NOT NULL DEFAULT 0,
-    `user_id` VARCHAR(191),
-    `link_status` INT NOT NULL DEFAULT 1,
-
-    PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
-
--- CreateTable
-CREATE TABLE `task_storage` (
-    `task_uuid` VARCHAR(191) NOT NULL,
-    `task_creation_timestamp` INT,
-    `task_object_json_string` VARCHAR(191),
-    `task_type` VARCHAR(191),
-
-    PRIMARY KEY (`task_uuid`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
-
--- CreateTable
-CREATE TABLE `nodule_registration` (
-    `seq` INT NOT NULL AUTO_INCREMENT,
-    `nodule_registration_request_uuid` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`seq`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `nodules` ADD FOREIGN KEY (`nodule_analysis_request_uuid`) REFERENCES `nodule_analysis_request_history`(`nodule_analysis_request_uuid`) ON DELETE CASCADE ON UPDATE CASCADE;

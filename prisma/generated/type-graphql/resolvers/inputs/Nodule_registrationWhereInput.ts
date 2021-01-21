@@ -21,6 +21,48 @@ export class Nodule_registrationWhereInput {
   })
   nodule_registration_request_uuid?: StringFilter | undefined;
 
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true,
+    description: undefined
+  })
+  study_instance_uid?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true,
+    description: undefined
+  })
+  series_instance_uid?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true,
+    description: undefined
+  })
+  comparison_study_instance_uid?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true,
+    description: undefined
+  })
+  comparison_series_instance_uid?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true,
+    description: undefined
+  })
+  comparison_nodule_uuid?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringFilter, {
+    nullable: true,
+    description: undefined
+  })
+  result_matrix?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true,
+    description: undefined
+  })
+  creation_timestamp?: IntFilter | undefined;
+
   @TypeGraphQL.Field(_type => [Nodule_registrationWhereInput], {
     nullable: true,
     description: undefined
