@@ -1,9 +1,0 @@
-export { AggregateUser_signin_historyArgs } from "./AggregateUser_signin_historyArgs";
-export { CreateUser_signin_historyArgs } from "./CreateUser_signin_historyArgs";
-export { DeleteManyUser_signin_historyArgs } from "./DeleteManyUser_signin_historyArgs";
-export { DeleteUser_signin_historyArgs } from "./DeleteUser_signin_historyArgs";
-export { FindManyUser_signin_historyArgs } from "./FindManyUser_signin_historyArgs";
-export { FindOneUser_signin_historyArgs } from "./FindOneUser_signin_historyArgs";
-export { UpdateManyUser_signin_historyArgs } from "./UpdateManyUser_signin_historyArgs";
-export { UpdateUser_signin_historyArgs } from "./UpdateUser_signin_historyArgs";
-export { UpsertUser_signin_historyArgs } from "./UpsertUser_signin_historyArgs";

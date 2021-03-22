@@ -1,9 +1,0 @@
-export { AggregateStudyArgs } from "./AggregateStudyArgs";
-export { CreateStudyArgs } from "./CreateStudyArgs";
-export { DeleteManyStudyArgs } from "./DeleteManyStudyArgs";
-export { DeleteStudyArgs } from "./DeleteStudyArgs";
-export { FindManyStudyArgs } from "./FindManyStudyArgs";
-export { FindOneStudyArgs } from "./FindOneStudyArgs";
-export { UpdateManyStudyArgs } from "./UpdateManyStudyArgs";
-export { UpdateStudyArgs } from "./UpdateStudyArgs";
-export { UpsertStudyArgs } from "./UpsertStudyArgs";

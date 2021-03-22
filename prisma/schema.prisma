@@ -3,13 +3,26 @@ generator client {
 }
 
 generator typegraphql {
-  provider = "node node_modules/typegraphql-prisma/generator.js"
-  output   = "../prisma/generated/type-graphql"
+  provider = "typegraphql-prisma"
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model user {
+  seq                           Int                   @id @default(autoincrement())
+  id                            String                @unique
+  name                          String
+  password                      String
+  permission                    user_permission       @default(PHYSICIAN)
+  creation_timestamp            Int                   @default(0)
+  update_timstamp               Int                   @default(0)
+  last_password_update_timstamp Int                   @default(0)
+  invalid_password_count        Int                   @default(0)
+  preference                    String?
+  user_signin_history           user_signin_history[]
 }
 
 model annotation {
@@ -28,6 +41,24 @@ model environment {
   json                  String
   last_update_timestamp Int
 }
+
+model garbage_collection {
+  seq                                  Int     @id
+  creation_timestamp                   Int?
+  error_timestamp                      Int?
+  finish_timestamp                     Int?
+  retry_count                          Int?
+  series_instance_uid                  String?
+  series_uuid_defined_in_internal_pacs String?
+  start_timestamp                      Int?
+  study_instance_uid                   String?
+  study_uuid_defined_in_internal_pacs  String?
+}
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled.
+// model hibernate_sequence {
+  // next_val Int?
+// }
 
 model internal_pacs_instance {
   seq                       Int     @id
@@ -71,6 +102,19 @@ model lung_rads_report {
   lung_rads_report_result         String?
 }
 
+model lung_registration {
+  comparison_study_instance_uid  String
+  comparison_series_instance_uid String
+  comparison_homography_matrix   String
+  creation_timestamp             Int     @default(0)
+  lung_registration_request_uuid String
+  homography_matrix              String
+  seq                            Int     @id @default(autoincrement())
+  series_instance_uid            String
+  study_instance_uid             String
+  user_id                        String?
+}
+
 model nodule_analysis_request_history {
   seq                                      Int       @id @default(autoincrement())
   nodule_analysis_request_uuid             String    @unique
@@ -84,6 +128,20 @@ model nodule_analysis_request_history {
   nodules                                  nodules[]
 
   @@index([series_uuid_defined_in_internal_pacs], name: "series_uuid_defined_in_internal_pacs")
+}
+
+model nodule_matching {
+  seq                            Int     @id @default(autoincrement())
+  nodule_matching_request_uuid   String
+  study_instance_uid             String
+  series_instance_uid            String
+  nodule_uuid                    String
+  comparison_study_instance_uid  String
+  comparison_series_instance_uid String
+  comparison_nodule_uuid         String
+  link_status                    Int?    @default(1)
+  user_id                        String?
+  creation_timestamp             Int     @default(0)
 }
 
 model nodules {
@@ -145,45 +203,6 @@ model nodules {
   @@index([series_instance_index], name: "series_instance_index")
 }
 
-model garbage_collection {
-  seq                                  Int     @id
-  creation_timestamp                   Int?
-  error_timestamp                      Int?
-  finish_timestamp                     Int?
-  retry_count                          Int?
-  series_instance_uid                  String?
-  series_uuid_defined_in_internal_pacs String?
-  start_timestamp                      Int?
-  study_instance_uid                   String?
-  study_uuid_defined_in_internal_pacs  String?
-}
-
-model nodule_matching {
-  seq                            Int     @id @default(autoincrement())
-  nodule_matching_request_uuid   String
-  study_instance_uid             String
-  series_instance_uid            String
-  nodule_uuid                    String
-  comparison_study_instance_uid  String
-  comparison_series_instance_uid String
-  comparison_nodule_uuid         String
-  creation_timestamp             Int     @default(0)
-  user_id                        String?
-  link_status                    Int     @default(1)
-}
-
-model nodule_registration {
-  seq                                 Int     @id @default(autoincrement())
-  nodule_registration_request_uuid    String
-  study_instance_uid                  String
-  series_instance_uid                 String
-  comparison_study_instance_uid       String
-  comparison_series_instance_uid      String
-  comparison_nodule_uuid              String
-  result_matrix                       String
-  creation_timestamp                  Int     @default(0)
-}
-
 model obfuscation_data {
   obfuscated_data String  @id
   creation_time   Int?
@@ -194,7 +213,7 @@ model patient {
   seq                Int     @id @default(autoincrement())
   patient_uuid       String  @unique
   patient_id         String
-  patient_name       String?
+  patient_name       String
   patient_sex        String
   creation_timestamp Int
   patient_age        String? @default("")
@@ -282,27 +301,6 @@ model study_duplicated_by_instance_uid {
   @@index([study_uuid_defined_in_internal_pacs], name: "study_uuid_defined_in_internal_2")
 }
 
-model task_storage {
-  task_uuid               String  @id
-  task_creation_timestamp Int?
-  task_object_json_string String?
-  task_type               String?
-}
-
-model user {
-  seq                           Int                   @id @default(autoincrement())
-  id                            String                @unique
-  name                          String
-  password                      String
-  permission                    user_permission       @default(PHYSICIAN)
-  creation_timestamp            Int                   @default(0)
-  update_timstamp               Int                   @default(0)
-  last_password_update_timstamp Int                   @default(0)
-  invalid_password_count        Int                   @default(0)
-  preference                    String?
-  user_signin_history           user_signin_history[]
-}
-
 model user_management_history {
   seq       Int                          @id @default(autoincrement())
   id        String
@@ -331,11 +329,6 @@ model user_study_open_history {
   series_uuid_defined_in_internal_pacs String
   open_request_timestamp               Int    @default(0)
 }
-
-// The underlying table does not contain a valid unique identifier and can therefore currently not be handled.
-// model hibernate_sequence {
-  // next_val Int?
-// }
 
 enum nodules_nodule_annotation_accuracy {
   TRUE_POSITIVE

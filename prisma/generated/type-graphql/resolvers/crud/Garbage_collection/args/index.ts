@@ -1,9 +1,0 @@
-export { AggregateGarbage_collectionArgs } from "./AggregateGarbage_collectionArgs";
-export { CreateGarbage_collectionArgs } from "./CreateGarbage_collectionArgs";
-export { DeleteGarbage_collectionArgs } from "./DeleteGarbage_collectionArgs";
-export { DeleteManyGarbage_collectionArgs } from "./DeleteManyGarbage_collectionArgs";
-export { FindManyGarbage_collectionArgs } from "./FindManyGarbage_collectionArgs";
-export { FindOneGarbage_collectionArgs } from "./FindOneGarbage_collectionArgs";
-export { UpdateGarbage_collectionArgs } from "./UpdateGarbage_collectionArgs";
-export { UpdateManyGarbage_collectionArgs } from "./UpdateManyGarbage_collectionArgs";
-export { UpsertGarbage_collectionArgs } from "./UpsertGarbage_collectionArgs";

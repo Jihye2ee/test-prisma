@@ -1,9 +1,0 @@
-export { AggregateNodulesArgs } from "./AggregateNodulesArgs";
-export { CreateNodulesArgs } from "./CreateNodulesArgs";
-export { DeleteManyNodulesArgs } from "./DeleteManyNodulesArgs";
-export { DeleteNodulesArgs } from "./DeleteNodulesArgs";
-export { FindManyNodulesArgs } from "./FindManyNodulesArgs";
-export { FindOneNodulesArgs } from "./FindOneNodulesArgs";
-export { UpdateManyNodulesArgs } from "./UpdateManyNodulesArgs";
-export { UpdateNodulesArgs } from "./UpdateNodulesArgs";
-export { UpsertNodulesArgs } from "./UpsertNodulesArgs";

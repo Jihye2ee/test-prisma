@@ -1,9 +1,0 @@
-export { AggregateNodule_registrationArgs } from "./AggregateNodule_registrationArgs";
-export { CreateNodule_registrationArgs } from "./CreateNodule_registrationArgs";
-export { DeleteManyNodule_registrationArgs } from "./DeleteManyNodule_registrationArgs";
-export { DeleteNodule_registrationArgs } from "./DeleteNodule_registrationArgs";
-export { FindManyNodule_registrationArgs } from "./FindManyNodule_registrationArgs";
-export { FindOneNodule_registrationArgs } from "./FindOneNodule_registrationArgs";
-export { UpdateManyNodule_registrationArgs } from "./UpdateManyNodule_registrationArgs";
-export { UpdateNodule_registrationArgs } from "./UpdateNodule_registrationArgs";
-export { UpsertNodule_registrationArgs } from "./UpsertNodule_registrationArgs";

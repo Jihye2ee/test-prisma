@@ -1,9 +1,0 @@
-export { AggregateAnnotationArgs } from "./AggregateAnnotationArgs";
-export { CreateAnnotationArgs } from "./CreateAnnotationArgs";
-export { DeleteAnnotationArgs } from "./DeleteAnnotationArgs";
-export { DeleteManyAnnotationArgs } from "./DeleteManyAnnotationArgs";
-export { FindManyAnnotationArgs } from "./FindManyAnnotationArgs";
-export { FindOneAnnotationArgs } from "./FindOneAnnotationArgs";
-export { UpdateAnnotationArgs } from "./UpdateAnnotationArgs";
-export { UpdateManyAnnotationArgs } from "./UpdateManyAnnotationArgs";
-export { UpsertAnnotationArgs } from "./UpsertAnnotationArgs";

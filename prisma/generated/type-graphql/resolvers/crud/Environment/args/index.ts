@@ -1,9 +1,0 @@
-export { AggregateEnvironmentArgs } from "./AggregateEnvironmentArgs";
-export { CreateEnvironmentArgs } from "./CreateEnvironmentArgs";
-export { DeleteEnvironmentArgs } from "./DeleteEnvironmentArgs";
-export { DeleteManyEnvironmentArgs } from "./DeleteManyEnvironmentArgs";
-export { FindManyEnvironmentArgs } from "./FindManyEnvironmentArgs";
-export { FindOneEnvironmentArgs } from "./FindOneEnvironmentArgs";
-export { UpdateEnvironmentArgs } from "./UpdateEnvironmentArgs";
-export { UpdateManyEnvironmentArgs } from "./UpdateManyEnvironmentArgs";
-export { UpsertEnvironmentArgs } from "./UpsertEnvironmentArgs";

@@ -1,9 +1,0 @@
-export { AggregateObfuscation_dataArgs } from "./AggregateObfuscation_dataArgs";
-export { CreateObfuscation_dataArgs } from "./CreateObfuscation_dataArgs";
-export { DeleteManyObfuscation_dataArgs } from "./DeleteManyObfuscation_dataArgs";
-export { DeleteObfuscation_dataArgs } from "./DeleteObfuscation_dataArgs";
-export { FindManyObfuscation_dataArgs } from "./FindManyObfuscation_dataArgs";
-export { FindOneObfuscation_dataArgs } from "./FindOneObfuscation_dataArgs";
-export { UpdateManyObfuscation_dataArgs } from "./UpdateManyObfuscation_dataArgs";
-export { UpdateObfuscation_dataArgs } from "./UpdateObfuscation_dataArgs";
-export { UpsertObfuscation_dataArgs } from "./UpsertObfuscation_dataArgs";

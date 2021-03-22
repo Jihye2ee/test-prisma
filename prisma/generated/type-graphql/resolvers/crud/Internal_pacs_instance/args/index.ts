@@ -1,9 +1,0 @@
-export { AggregateInternal_pacs_instanceArgs } from "./AggregateInternal_pacs_instanceArgs";
-export { CreateInternal_pacs_instanceArgs } from "./CreateInternal_pacs_instanceArgs";
-export { DeleteInternal_pacs_instanceArgs } from "./DeleteInternal_pacs_instanceArgs";
-export { DeleteManyInternal_pacs_instanceArgs } from "./DeleteManyInternal_pacs_instanceArgs";
-export { FindManyInternal_pacs_instanceArgs } from "./FindManyInternal_pacs_instanceArgs";
-export { FindOneInternal_pacs_instanceArgs } from "./FindOneInternal_pacs_instanceArgs";
-export { UpdateInternal_pacs_instanceArgs } from "./UpdateInternal_pacs_instanceArgs";
-export { UpdateManyInternal_pacs_instanceArgs } from "./UpdateManyInternal_pacs_instanceArgs";
-export { UpsertInternal_pacs_instanceArgs } from "./UpsertInternal_pacs_instanceArgs";

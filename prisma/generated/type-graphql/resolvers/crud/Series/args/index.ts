@@ -1,9 +1,0 @@
-export { AggregateSeriesArgs } from "./AggregateSeriesArgs";
-export { CreateSeriesArgs } from "./CreateSeriesArgs";
-export { DeleteManySeriesArgs } from "./DeleteManySeriesArgs";
-export { DeleteSeriesArgs } from "./DeleteSeriesArgs";
-export { FindManySeriesArgs } from "./FindManySeriesArgs";
-export { FindOneSeriesArgs } from "./FindOneSeriesArgs";
-export { UpdateManySeriesArgs } from "./UpdateManySeriesArgs";
-export { UpdateSeriesArgs } from "./UpdateSeriesArgs";
-export { UpsertSeriesArgs } from "./UpsertSeriesArgs";
